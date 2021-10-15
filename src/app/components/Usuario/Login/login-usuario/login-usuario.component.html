@@ -1,0 +1,86 @@
+<div class="userForm" fxLayout="row" fxLayoutAlign="center end">
+  <div>
+
+    <h1>Login de Usuários</h1>
+
+    <mat-divider></mat-divider>
+
+    <div class="cardErrors" *ngIf="erros.length > 0">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Erro: </mat-card-title>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+
+        <mat-card-content>
+          <div class="divErrors">
+            <h4 class="textErrors" *ngFor="let erro of erros">
+              {{erro}}
+            </h4>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="form">
+      <form [formGroup]="form" (ngSubmit)="sendForm()">
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="email" placeholder="Digite o Email"
+            required>
+            <div *ngIf="property.email.invalid">
+              <mat-error *ngIf="property.email.touched">
+                <sup>*</sup> Digite o Email.
+              </mat-error>
+              <mat-error *ngIf="property.email.errors?.minlength">
+                <sup>*</sup> Mínimo de caracteres é 5.
+              </mat-error>
+              <mat-error *ngIf="property.email.errors?.maxlength">
+                <sup>*</sup> Máximo de caracteres é 50.
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Senha</mat-label>
+            <input type="password" matInput formControlName="senha" placeholder="Digite a Senha"
+            required>
+            <div *ngIf="property.senha.invalid">
+              <mat-error *ngIf="property.senha.touched">
+                <sup>*</sup> Digite a Senha.
+              </mat-error>
+              <mat-error *ngIf="property.senha.errors?.minlength">
+                <sup>*</sup> Mínimo de caracteres é 8.
+              </mat-error>
+              <mat-error *ngIf="property.senha.errors?.maxlength">
+                <sup>*</sup> Máximo de caracteres é 30.
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+
+        <br><br><br>
+
+        <mat-divider></mat-divider>
+
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center" class="botoes">
+          <div>
+            <button type="submit" mat-stroked-button color="primary" [disabled]="form.invalid">
+              Logar
+            </button>
+          </div>
+          <div>
+            <button type="button" mat-stroked-button color="accent" routerLink="/usuarios/registrarusuario">
+              Não possuo aceeso
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>

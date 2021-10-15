@@ -1,0 +1,141 @@
+.dados{
+  padding: 30px;
+}
+
+.tabela{
+  width: 100%;
+  padding-top: 30px;
+}
+
+.divCard {
+  padding: 60px;
+  width: 600px;
+}
+
+.mat-form-field.mat-form-field {
+  width: 500px;
+}
+
+.cabecalho {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.titulo {
+  position: absolute;
+  left: 5px;
+  font-size: 24px;
+}
+
+.subTitulo {
+  position: absolute;
+  left: 15px;
+  padding-bottom: 30px;
+  font-size: 22px;
+}
+
+.divAutoComplete {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.autoCompleteInput {
+  width: 500px;
+}
+
+.textErrors {
+  font-weight: 900;
+  color: red;
+}
+
+.divErrors {
+  padding: 20px;
+}
+
+.cardErrors {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.classInput {
+  padding-top: 15px;
+}
+
+.divForm {
+  width: 900px;
+}
+
+.divFoto {
+  border-width: 1px;
+  border-color: #bdc3c7;
+  border-style: solid;
+  height: 300px;
+  width: 350px;
+}
+
+.userForm {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.form {
+  padding-top: 25px;
+}
+
+.botoes {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.mat-form-field.mat-form.field {
+  width: 500px;
+}
+
+.mat-sidenav {
+  padding: 50px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.titulo_barra {
+  padding-left: 40px;
+}
+
+.material-icons.md-48 {
+  font-size: 48px;
+  padding-bottom: 25px;
+}
+
+th {
+  font-weight: bold;
+}
+
+.dashboard {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  width: 100%;
+}
+
+.matCard {
+  width: 170px;
+}
+
+.anos {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  padding-left: 100px;
+}
+
+.matSelect{
+  width:200px !important;
+}
+
+.divGrafico {
+  width: 78%;
+}
+
+.mat-cell-class {
+  color: red;
+}

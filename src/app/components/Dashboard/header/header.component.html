@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+  <mat-icon class="material-icons md-48">computer</mat-icon>
+  <span class="titulo_barra">INVEST - Aplicações</span>
+  <span class="spacer"></span>
+
+  <div *ngIf="emailUsuarioLogado" fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="end center">
+    <div>
+      Olá, {{emailUsuarioLogado}}
+    </div>
+
+    <div>
+      <button type="button" mat-raised-button (click)="logout()">Logout</button>
+    </div>
+  </div>
+</mat-toolbar>

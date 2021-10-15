@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirmação de Exclusão</h1>
+
+<div mat-dialog-content>Prosseguir com a exclusão do tipo <b>{{data.nome}}?</b></div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Não</button>
+  <button mat-button [mat-dialog-close]="true" (click)="deleteTipo(data.tipoId)">Sim</button>
+</mat-dialog-actions>

@@ -1,0 +1,80 @@
+<div class="dashboard">
+  <div fxLayout="row" fxLayoutAlign="space-around center">
+    <div>
+      <mat-card class="matCard">
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="20px">
+          <div fxFlex="40">
+            <mat-icon style="font-size: 50px;">monetization_on</mat-icon>
+          </div>
+          <div fxFlex="60">
+            Investimento  <br>
+            <b>{{investimentoTotal | currency:'BRL'}}</b>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div>
+      <mat-card class="matCard">
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="20px">
+          <div fxFlex="40">
+            <mat-icon style="font-size: 50px;">attach_money</mat-icon>
+          </div>
+          <div fxFlex="60">
+            Transações  <br>
+            <b>{{retornoTotal | currency:'BRL'}}</b>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div>
+      <mat-card class="matCard">
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="20px">
+          <div fxFlex="40">
+            <mat-icon style="font-size: 50px;">request_quote</mat-icon>
+          </div>
+          <div fxFlex="60">
+            Lucro <br>
+            <b>{{lucroTotal | currency:'BRL'}}</b>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div>
+      <mat-card class="matCard">
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="20px">
+          <div fxFlex="40">
+            <mat-icon style="font-size: 50px;">percent</mat-icon>
+          </div>
+          <div fxFlex="60">
+            Lucro <br>
+            <b>{{retornoPorc}} %</b>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="anos" class="anos" fxLayout="row" fxLayoutAlign="start center">
+  <mat-form-field class="matSelect" appearance="outline">
+    <mat-label>Selecione o Ano</mat-label>
+      <mat-select #anoSelecionado
+      [(ngModel)]="anoAtual"
+      (selectionChange)="LoadData(anoSelecionado.value)">
+      <mat-option *ngFor="let ano of anos" [value]="ano">
+        {{ano}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="divGrafico" *ngIf="dados">
+  <canvas
+  baseChart
+  [datasets]="dados"
+  [labels]="labels"
+  [options]="opcoes"
+  [plugins]="plugins"
+  [chartType]="tipo">
+</canvas>
+</div>

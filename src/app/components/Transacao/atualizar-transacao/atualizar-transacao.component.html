@@ -1,0 +1,264 @@
+<div *ngIf="!form">
+  <mat-progress-bar mode="buffer"></mat-progress-bar>
+</div>
+
+<div class="divCard" *ngIf="form">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h2 class="subTitulo">Atualizar Transação: <b>{{ativoTransacao}}</b></h2>
+      </mat-card-title>
+    </mat-card-header>
+    <br>
+    <form [formGroup]="form" (ngSubmit)="sendForm()">
+      <div class="cardErrors" *ngIf="erros.length > 0">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Erro: </mat-card-title>
+          </mat-card-header>
+
+          <mat-divider></mat-divider>
+
+          <mat-card-content>
+            <div class="divErrors">
+              <h4 class="textErrors" *ngFor="let erro of erros">
+                {{erro}}
+              </h4>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <mat-card-content>
+
+        <!-- Compra -->
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Selecione o Ativo</mat-label>
+            <mat-select formControlName="ativoId" required>
+              <mat-option *ngFor="let ativo of ativos" [value]="ativo.ativoId">
+                {{ativo.sigla}}
+              </mat-option>
+            </mat-select>
+            <div *ngIf="property.ativoId.invalid">
+              <mat-error *ngIf="property.ativoId.touched">
+                <sup>*</sup> Selecione o Ativo.
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Selecione o Tipo</mat-label>
+            <mat-select formControlName="tipoId" required>
+              <mat-option *ngFor="let tipo of tipos" [value]="tipo.tipoId">
+                {{tipo.codigo}} - {{tipo.nome}}
+              </mat-option>
+            </mat-select>
+            <div *ngIf="property.tipoId.invalid">
+              <mat-error *ngIf="property.tipoId.touched">
+                <sup>*</sup> Selecione o Tipo.
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Dia</mat-label>
+            <input type="number" step="1" min="1" max="31" matInput formControlName="diaCompra" placeholder="Digite o Dia"
+            required>
+            <div *ngIf="property.diaCompra.invalid">
+              <mat-error *ngIf="property.diaCompra.touched">
+                <sup>*</sup> Digite o Dia.
+              </mat-error>
+              <mat-error *ngIf="property.diaCompra.errors?.min">
+                <sup>*</sup> Dia deve ser maior que 0.
+              </mat-error>
+              <mat-error *ngIf="property.diaCompra.errors?.max">
+                <sup>*</sup> Dia deve ser menor que 32.
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Mês</mat-label>
+            <mat-select formControlName="mesIdCompra" required>
+              <mat-option *ngFor="let mes of meses" [value]="mes.mesId">
+                {{mes.nome}}
+              </mat-option>
+            </mat-select>
+            <div *ngIf="property.mesIdCompra.invalid">
+              <mat-error *ngIf="property.mesIdCompra.touched">
+                <sup>*</sup> Selecione o Mês.
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Ano</mat-label>
+            <input type="number" step="1" min="2000" max="2199" matInput formControlName="anoCompra" placeholder="Digite o Ano"
+            required>
+            <div *ngIf="property.anoCompra.invalid">
+              <mat-error *ngIf="property.anoCompra.touched">
+                <sup>*</sup> Digite o Ano.
+              </mat-error>
+              <mat-error *ngIf="property.anoCompra.errors?.min">
+                <sup>*</sup> Ano deve ser maior que 1999.
+              </mat-error>
+              <mat-error *ngIf="property.anoCompra.errors?.max">
+                <sup>*</sup> Ano deve ser menor que 2200.
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Quantidade da Compra</mat-label>
+            <input type="number" step="1" min="1" matInput formControlName="qtdCompra" placeholder="Digite a Quantidade"
+            required>
+            <div *ngIf="property.qtdCompra.invalid">
+              <mat-error *ngIf="property.qtdCompra.touched">
+                <sup>*</sup> Digite a Quantidade.
+              </mat-error>
+              <mat-error *ngIf="property.qtdCompra.errors?.min">
+                <sup>*</sup> Quantidade deve ser maior que 0.
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Valor da Compra</mat-label>
+            <input type="text" currencyMask matInput formControlName="valorCompra" placeholder="R$"
+            required>
+            <div *ngIf="property.valorCompra.invalid">
+              <mat-error *ngIf="property.valorCompra.touched">
+                <sup>*</sup> Digite o Valor.
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div>
+          <section class="classInput">
+            <mat-checkbox color="primary" formControlName="vendido">Vendido</mat-checkbox>
+          </section>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <!-- Venda -->
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Dia</mat-label>
+            <input type="number" step="1" min="1" max="31" matInput formControlName="diaVenda" placeholder="Digite o Dia">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Mês</mat-label>
+            <mat-select formControlName="mesIdVenda">
+              <mat-option *ngFor="let mes of meses" [value]="mes.mesId">
+                {{mes.nome}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Ano</mat-label>
+            <input type="number" step="1" min="2000" max="2199" matInput formControlName="anoVenda" placeholder="Digite o Ano">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Quantidade da Venda</mat-label>
+            <input type="number" step="1" min="1" matInput formControlName="qtdVenda" placeholder="Digite a Quantidade">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Valor da Venda</mat-label>
+            <input type="text" currencyMask matInput formControlName="valorVenda" placeholder="R$">
+          </mat-form-field>
+        </div>
+
+      </mat-card-content>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-action>
+        <div>
+          <button type="submit" mat-stroked-button color="primary" [disabled]="form.invalid">Salvar</button>
+          <button mat-stroked-button type="button" (click)="listReturn()">Voltar</button>
+        </div>
+      </mat-card-action>
+
+    </form>
+
+  </mat-card>
+</div>
+
+<!-- Resumo -->
+<div class="divCard" *ngIf="form" fxLayout="row" fxFlex="30" fxLayoutAlign="center">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h2 class="subTitulo">Resumo Transação</h2>
+      </mat-card-title>
+    </mat-card-header>
+
+    <br>
+    <form [formGroup]="form">
+
+      <!-- Totais -->
+      <mat-card-content>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Valor Total da Compra</mat-label>
+            <input type="text" readonly matInput
+            value="{{(property.qtdCompra.value * property.valorCompra.value) | currency:'BRL'}}">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Valor Total da Venda</mat-label>
+            <input type="text" readonly matInput
+            value="{{(property.qtdVenda.value * property.valorVenda.value) | currency:'BRL'}}">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Lucro %</mat-label>
+            <input type="text" readonly matInput
+            value="{{property.valorVenda.value === null || property.valorVenda.value === '' ? '0' :(((property.valorVenda.value / property.valorCompra.value)-1)*100).toFixed(2)}}">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Lucro</mat-label>
+            <input type="text" readonly matInput
+            value="{{((property.valorVenda.value - property.valorCompra.value) * property.qtdVenda.value) | currency:'BRL'}}">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Imposto</mat-label>
+            <input type="text" readonly matInput
+            value="{{((((property.valorVenda.value - property.valorCompra.value) * property.qtdVenda.value)/100)*15) | currency:'BRL'}}">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Lucro Líquido</mat-label>
+            <input type="text" readonly matInput
+            value="{{((property.valorVenda.value - property.valorCompra.value) * property.qtdVenda.value) <= 0 ? '0' : ((property.qtdVenda.value * property.valorVenda.value) - ((((property.valorVenda.value - property.valorCompra.value) * property.qtdVenda.value)/100)*15)) | currency:'BRL'}}">
+          </mat-form-field>
+        </div>
+
+      </mat-card-content>
+
+    </form>
+  </mat-card>
+</div>

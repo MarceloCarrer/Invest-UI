@@ -1,0 +1,72 @@
+<div *ngIf="!transacoes">
+  <mat-progress-bar mode="buffer"></mat-progress-bar>
+</div>
+
+<div class="dados">
+  <div class="cabecalho">
+    <mat-grid-list cols="2" rowHeight="50px">
+      <mat-grid-tile>
+        <h2 class="titulo">Transações Cadastradas</h2>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <button mat-stroked-button color="primary" routerLink="/transacoes/novatransacao">Nova Transação</button>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <div class="divAutoComplete" fxLayout="row" fxLayoutGap="50px">
+      <form>
+        <div fxFlex="60" fxLayoutAlign="start center">
+          <mat-form-field class="autoCompleteInput">
+            <input type="text" placeholder="Pesquisar..." matInput [formControl]="autoCompleteInput" [matAutocomplete]="auto"/>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let nome of nomeAtivo | async" [value]="nome">{{nome}}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+
+    <table mat-table [dataSource]="transacoes" matSort class="mat-elevation-z8 tabela" *ngIf="transacoes">
+      <ng-container matColumnDef="ativo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ativo</th>
+        <td mat-cell *matCellDef="let transacao">{{ transacao.ativo.sigla }}{{ transacao.tipo.codigo }}</td>
+      </ng-container>
+      <ng-container matColumnDef="dataCompra">
+        <th mat-header-cell *matHeaderCellDef>Data Compra</th>
+        <td mat-cell *matCellDef="let transacao">{{ transacao.diaCompra }}/{{ transacao.mesIdCompra }}/{{ transacao.anoCompra}}</td>
+      </ng-container>
+      <ng-container matColumnDef="dataVenda">
+        <th mat-header-cell *matHeaderCellDef>Data Venda</th>
+        <td mat-cell *matCellDef="let transacao">{{ transacao.diaVenda }}/{{ transacao.mesIdVenda }}/{{ transacao.anoVenda}}</td>
+      </ng-container>
+      <ng-container matColumnDef="qtdCompra">
+        <th mat-header-cell *matHeaderCellDef>Quantidade</th>
+        <td mat-cell *matCellDef="let transacao">{{ transacao.qtdCompra }}</td>
+      </ng-container>
+      <ng-container matColumnDef="valorCompra">
+        <th mat-header-cell *matHeaderCellDef>Valor Compra</th>
+        <td mat-cell *matCellDef="let transacao">{{ transacao.valorCompra | currency:'BRL'}}</td>
+      </ng-container>
+      <ng-container matColumnDef="valorVenda">
+        <th mat-header-cell *matHeaderCellDef>Valor Venda</th>
+        <td mat-cell class="mat-cell-class" *matCellDef="let transacao">{{ transacao.valorVenda | currency:'BRL' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="vendido">
+        <th mat-header-cell *matHeaderCellDef>Vendido</th>
+        <td mat-cell *matCellDef="let transacao">{{ transacao.vendido ? 'Sim' : 'Não' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Opções</th>
+        <td mat-cell *matCellDef="let transacao">
+          <button mat-mini-fab color="primary" [routerLink]="['/transacoes/atualizartransacao', transacao.transacaoId]"><mat-icon>edit</mat-icon></button>
+          <button mat-mini-fab color="warn" (click)="openDialog(transacao.transacaoId, transacao.ativo.sigla, transacao.tipo.codigo)"><mat-icon>delete_forever</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"showFirstLastButtons></mat-paginator>
+  </div>
+</div>

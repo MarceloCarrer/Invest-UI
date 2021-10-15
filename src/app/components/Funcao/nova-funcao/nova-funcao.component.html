@@ -1,0 +1,80 @@
+<div *ngIf="!form">
+  <mat-progress-bar mode="buffer"></mat-progress-bar>
+</div>
+
+<div class="divCard" *ngIf="form">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h2 class="subTitulo">Novo Cadastro de Função</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <br>
+    <form [formGroup]="form" (ngSubmit)="sendForm()">
+      <div class="cardErrors" *ngIf="erros.length > 0">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Erro: </mat-card-title>
+          </mat-card-header>
+
+          <mat-divider></mat-divider>
+          
+          <mat-card-content>
+            <div class="divErrors">
+              <h4 class="textErrors" *ngFor="let erro of erros">
+                {{erro}}
+              </h4>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <mat-card-content>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Nome</mat-label>
+            <input oninput="this.value = this.value.toUpperCase()" type="text" matInput formControlName="name" placeholder="Digite o Nome"
+            required>
+            <div *ngIf="property.name.invalid">
+              <mat-error *ngIf="property.name.touched">
+                <sup>*</sup> Digite o Nome.
+              </mat-error>
+              <mat-error *ngIf="property.name.errors?.minlength">
+                <sup>*</sup> Mínimo de caracteres é 2.
+              </mat-error>
+              <mat-error *ngIf="property.name.errors?.maxlength">
+                <sup>*</sup> Máximo de caracteres é 30.
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Descrição</mat-label>
+            <input oninput="this.value = this.value.toUpperCase()" type="text" matInput formControlName="descricao" placeholder="Digite a Descrição"
+            required>
+            <div *ngIf="property.descricao.invalid">
+              <mat-error *ngIf="property.descricao.touched">
+                <sup>*</sup> Digite a Descrição.
+              </mat-error>
+              <mat-error *ngIf="property.descricao.errors?.minlength">
+                <sup>*</sup> Mínimo de caracteres é 4.
+              </mat-error>
+              <mat-error *ngIf="property.descricao.errors?.maxlength">
+                <sup>*</sup> Máximo de caracteres é 50.
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-action>
+        <div>
+          <button type="submit" mat-stroked-button color="primary" [disabled]="form.invalid">Salvar</button>
+          <button mat-stroked-button type="button" (click)="listReturn()">Voltar</button>
+        </div>
+      </mat-card-action>
+    </form>
+  </mat-card>
+</div>

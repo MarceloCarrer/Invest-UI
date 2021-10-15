@@ -1,0 +1,89 @@
+<div *ngIf="!form">
+  <mat-progress-bar mode="buffer"></mat-progress-bar>
+</div>
+
+<div class="divCard" *ngIf="form">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h2 class="subTitulo">Atualizar Tipo: <b>{{nomeTipo}}</b></h2>
+      </mat-card-title>
+    </mat-card-header>
+    <br>
+    <form [formGroup]="form" (ngSubmit)="sendForm()">
+      <div class="cardErrors" *ngIf="erros.length > 0">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Erro: </mat-card-title>
+          </mat-card-header>
+
+          <mat-divider></mat-divider>
+          
+          <mat-card-content>
+            <div class="divErrors">
+              <h4 class="textErrors" *ngFor="let erro of erros">
+                {{erro}}
+              </h4>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <mat-card-content>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Nome</mat-label>
+            <input oninput="this.value = this.value.toUpperCase()" type="text" matInput formControlName="nome" placeholder="Digite o Nome"
+            required>
+            <div *ngIf="property.nome.invalid">
+              <mat-error *ngIf="property.nome.touched">
+                <sup>*</sup> Digite o Nome.
+              </mat-error>
+              <mat-error *ngIf="property.nome.errors?.minlength">
+                <sup>*</sup> Mínimo de caracteres é 2.
+              </mat-error>
+              <mat-error *ngIf="property.nome.errors?.maxlength">
+                <sup>*</sup> Máximo de caracteres é 50.
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Sigla</mat-label>
+            <input oninput="this.value = this.value.toUpperCase()" type="text" matInput formControlName="sigla" placeholder="Digite a Sigla"
+            required>
+            <div *ngIf="property.sigla.invalid">
+              <mat-error *ngIf="property.sigla.touched">
+                <sup>*</sup> Digite a Sigla.
+              </mat-error>
+              <mat-error *ngIf="property.sigla.errors?.minlength">
+                <sup>*</sup> Mínimo de caracteres é 2.
+              </mat-error>
+              <mat-error *ngIf="property.sigla.errors?.maxlength">
+                <sup>*</sup> Máximo de caracteres é 10.
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="classInput">
+            <mat-label>Código</mat-label>
+            <input type="number" step="0" min="0" matInput formControlName="codigo" placeholder="Digite o Código" required>
+            <mat-error *ngIf="property.codigo.touched && property.codigo.invalid">
+              <sup>*</sup> Digite o Código.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-action>
+        <div>
+          <button type="submit" mat-stroked-button color="primary" [disabled]="form.invalid">Atualizar</button>
+          <button mat-stroked-button type="button" (click)="listReturn()">Voltar</button>
+        </div>
+      </mat-card-action>
+    </form>
+  </mat-card>
+</div>

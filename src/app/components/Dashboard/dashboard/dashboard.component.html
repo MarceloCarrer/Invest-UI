@@ -1,0 +1,57 @@
+<app-header></app-header>
+
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <mat-list style="cursor: pointer;">
+
+      <mat-list-item routerLink="/dashboard/index">
+        <mat-icon>space_dashboard</mat-icon> Dashboard
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <mat-list-item routerLink="/transacoes/listagemtransacoes">
+        <mat-icon>attach_money</mat-icon> Transações
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <mat-list-item routerLink="/investimentos/listageminvestimentos">
+        <mat-icon>monetization_on</mat-icon> Investimentos
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <mat-list-item routerLink="/ativos/listagemativos">
+        <mat-icon>account_balance</mat-icon> Ativos
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <mat-list-item routerLink="/tipos/listagemtipos">
+        <mat-icon>list_alt</mat-icon> Tipos
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <mat-list-item routerLink="/usuarios/atualizarusuario">
+        <mat-icon>admin_panel_settings</mat-icon> Meus Dados
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <div *ngIf="isAdmin">
+        <mat-list-item routerLink="/funcoes/listagemfuncoes">
+          <mat-icon>supervised_user_circle</mat-icon> Funções
+        </mat-list-item>
+      </div>
+
+    </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+
+</mat-sidenav-container>

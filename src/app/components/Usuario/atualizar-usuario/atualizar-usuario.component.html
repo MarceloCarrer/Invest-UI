@@ -1,0 +1,106 @@
+<div *ngIf="!form">
+  <mat-progress-bar mode="buffer"></mat-progress-bar>
+</div>
+
+<div class="userForm" fxLayout="row" fxLayoutAlign="center end" *ngIf="form">
+  <div class="divForm">
+    <h1>Atualizar Usuários: {{ nomeUsuario }}</h1>
+
+    <mat-divider></mat-divider>
+
+    <div class="form">
+      <form [formGroup]="form" (ngSubmit)="sendForm()">
+        <div fxLayout="row" fxLayoutGap="30px">
+          <div fxFlex="40" fxLayoutAlign="center end">
+            <div fxLayout="column">
+              <div class="divFoto">
+                <img id="foto" src="../../../../../assets/images/cadastro_usuario_1.png" width="350" height="300">
+              </div>
+              <div fxLayoutAlign="center end">
+                <br/><br/><br/><br/>
+              </div>
+            </div>
+          </div>
+          <div fxFlex="60">
+            <div class="cardErrors" *ngIf="erros.length > 0">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Erro: </mat-card-title>
+                </mat-card-header>
+
+                <mat-divider></mat-divider>
+
+                <mat-card-content>
+                  <div class="divErrors">
+                    <h4 class="textErrors" *ngFor="let erro of erros">
+                      {{erro}}
+                    </h4>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div>
+              <mat-form-field class="classInput">
+                <mat-label>Nome de Usuário</mat-label>
+                <input oninput="this.value = this.value.toUpperCase()" type="text" matInput formControlName="nomeUsuario" placeholder="Digite o Nome"
+                required>
+                <div *ngIf="property.nomeUsuario.invalid">
+                  <mat-error *ngIf="property.nomeUsuario.touched">
+                    <sup>*</sup> Digite o Nome.
+                  </mat-error>
+                  <mat-error *ngIf="property.nomeUsuario.errors?.minlength">
+                    <sup>*</sup> Mínimo de caracteres é 2.
+                  </mat-error>
+                  <mat-error *ngIf="property.nomeUsuario.errors?.maxlength">
+                    <sup>*</sup> Máximo de caracteres é 50.
+                  </mat-error>
+                </div>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="classInput">
+                <mat-label>CPF</mat-label>
+                <input type="text" matInput formControlName="cpf" placeholder="Digite o CPF"
+                required mask="000.000.000-00">
+                <div *ngIf="property.cpf.invalid">
+                  <mat-error *ngIf="property.cpf.touched">
+                    <sup>*</sup> Digite o CPF corretamente.
+                  </mat-error>
+                </div>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="classInput">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="Digite o Email"
+                required>
+                <div *ngIf="property.email.invalid">
+                  <mat-error *ngIf="property.email.touched">
+                    <sup>*</sup> Digite o Email válido.
+                  </mat-error>
+                  <mat-error *ngIf="property.email.errors?.minlength">
+                    <sup>*</sup> Mínimo de caracteres é 5.
+                  </mat-error>
+                  <mat-error *ngIf="property.email.errors?.maxlength">
+                    <sup>*</sup> Máximo de caracteres é 50.
+                  </mat-error>
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <br>
+        <mat-divider></mat-divider>
+
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center" class="botoes">
+          <div>
+            <button type="submit" mat-stroked-button color="primary" [disabled]="form.invalid">Atualizar</button>
+          </div>
+          <div>
+            <button mat-stroked-button type="button" (click)="listReturn()">Voltar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
